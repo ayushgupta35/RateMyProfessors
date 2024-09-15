@@ -1,4 +1,4 @@
-// Formats numerical values to one decimal place, returns 'N/A' if value is not a number
+// Formats numerical values to one decimal place and appends '/ 5' if value is not 'N/A'
 function formatToOneDecimal(value) {
     if (value === 'N/A') return 'N/A';
     const numericValue = parseFloat(value);
@@ -290,8 +290,25 @@ function observeForSectionTable() {
     observer.observe(document.body, { childList: true, subtree: true });
 }
 
-// Initialize when the page is loaded or navigated
-window.addEventListener('load', observeForSectionTable);
-window.addEventListener('popstate', observeForSectionTable);
-window.addEventListener('pushstate', observeForSectionTable);
-window.addEventListener('replaceState', observeForSectionTable);
+// Checks if the user is signed in
+function checkUserLoginStatus() {
+    const observer = new MutationObserver(() => {
+        const signInElement = document.querySelector('#sign-in-header');
+        const userAccountElement = document.querySelector('#user-account');
+
+        if (!signInElement && userAccountElement) {
+            console.log("User is logged in, starting extension.");
+            observeForSectionTable();
+        } else {
+            console.log("User is not logged in, extension will not run.");
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Initialize the login check when the page is loaded or navigated
+window.addEventListener('load', checkUserLoginStatus);
+window.addEventListener('popstate', checkUserLoginStatus);
+window.addEventListener('pushstate', checkUserLoginStatus);
+window.addEventListener('replaceState', checkUserLoginStatus);
