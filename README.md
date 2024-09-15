@@ -8,7 +8,7 @@ Choosing the right professor can make or break your class experience. With the *
 
 Wondering how difficult a course might be? Or curious about how many students would actually take a class again with a professor? Now, it's all right in front of you as you plan your schedule!
 
-This tool is **non-profit** and built with students in mind, making the registration process easier and more transparent. All the information presented comes from **RateMyProfessors** and remains **unmanipulated**—we're here just to make your life easier!
+This tool is **non-profit** and built with students in mind, making the registration process easier and more transparent. All the information presented comes from **RateMyProfessors** and remains **unmanipulated**.
 
 ### Features
 
