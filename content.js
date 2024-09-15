@@ -6,25 +6,26 @@ function formatToOneDecimal(value) {
 }
 
 // Returns the background color based on the given rating or percentage value
-function getBackgroundColor(value, isPercentage = false) {
+function getBackgroundColor(value, isDifficulty) {
     let color = '#d3d3d3';  // Default light grey for 'N/A'
     if (value === 'N/A') return color;
 
     const numericValue = parseFloat(value);
-    if (isPercentage) {
-        // Color scheme for "Would Take Again" percentage
-        if (numericValue >= 80) {
-            color = 'rgb(127, 246, 195)';  // Green for 80% and above
-        } else if (numericValue >= 60) {
-            color = 'rgb(255, 241, 112)';  // Yellow for 60% to 79.99%
+
+    if (isDifficulty) {
+        // Reversed color scheme for "Difficulty"
+        if (numericValue < 3.0) {
+            color = 'rgb(127, 246, 195)';  // Green for below 3.0
+        } else if (numericValue >= 3.0 && numericValue < 4.0) {
+            color = 'rgb(255, 241, 112)';  // Yellow for 3.0 to 3.99
         } else {
-            color = 'rgb(255, 156, 156)';  // Red for below 60%
+            color = 'rgb(255, 156, 156)';  // Red for 4.0 and above
         }
     } else {
-        // Color scheme for "Rating" and "Difficulty"
+        // Standard color scheme for "Rating"
         if (numericValue >= 4.0) {
             color = 'rgb(127, 246, 195)';  // Green for 4.0 and above
-        } else if (numericValue >= 3.0) {
+        } else if (numericValue >= 3.0 && numericValue < 4.0) {
             color = 'rgb(255, 241, 112)';  // Yellow for 3.0 to 3.99
         } else {
             color = 'rgb(255, 156, 156)';  // Red for below 3.0
@@ -32,6 +33,7 @@ function getBackgroundColor(value, isPercentage = false) {
     }
     return color;
 }
+
 
 // Removes middle names from the professor's name for more accurate searching
 function removeMiddleName(professorName) {
@@ -210,7 +212,7 @@ function addRatingColumn() {
                 const ratingCell = document.createElement('td');
                 const ratingSpan = document.createElement('span');
                 ratingSpan.innerText = professorData.rating;
-                ratingSpan.style.backgroundColor = getBackgroundColor(professorData.rating);
+                ratingSpan.style.backgroundColor = getBackgroundColor(professorData.rating, false);
                 ratingSpan.style.padding = '5px';
                 ratingSpan.style.borderRadius = '5px';
                 ratingSpan.style.display = 'inline-block';
@@ -222,7 +224,7 @@ function addRatingColumn() {
                 const difficultyCell = document.createElement('td');
                 const difficultySpan = document.createElement('span');
                 difficultySpan.innerText = professorData.difficulty;
-                difficultySpan.style.backgroundColor = getBackgroundColor(professorData.difficulty);
+                difficultySpan.style.backgroundColor = getBackgroundColor(professorData.difficulty, true);
                 difficultySpan.style.padding = '5px';
                 difficultySpan.style.borderRadius = '5px';
                 difficultySpan.style.display = 'inline-block';
