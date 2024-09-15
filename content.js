@@ -135,13 +135,13 @@ function addLegend() {
 
         legend.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div style="font-weight: bold;">Legend:</div>
+                <div></div>
                 <div style="font-weight: normal; font-style: italic">(Values Out of 5)</div>
             </div>
             <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div><span style="background-color: rgb(255, 156, 156); padding: 5px; border-radius: 5px;">Below 3.0</span></div>
-                <div><span style="background-color: rgb(255, 241, 112); padding: 5px; border-radius: 5px;">3.0-3.99</span></div>
-                <div><span style="background-color: rgb(127, 246, 195); padding: 5px; border-radius: 5px;">4.0-5.0</span></div>
+                <div><span style="background-color: rgb(255, 156, 156); padding: 5px; border-radius: 5px;">Poor</span></div>
+                <div><span style="background-color: rgb(255, 241, 112); padding: 5px; border-radius: 5px;">Average</span></div>
+                <div><span style="background-color: rgb(127, 246, 195); padding: 5px; border-radius: 5px;">Excellent</span></div>
                 <div><span style="background-color: #d3d3d3; padding: 5px; border-radius: 5px;">Field Not Found</span></div>
             </div>
         `;
