@@ -20,7 +20,7 @@ This tool is **non-profit** and built with students in mind, making the registra
 
 ### Installation
 
-#### 👀 Coming soon! Be on the lookout!
+#### Chrome Web Store Coming soon! Be on the lookout! 👀
 
 For now, you can install it manually:
 
