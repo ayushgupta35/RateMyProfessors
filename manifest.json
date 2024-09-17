@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "UW MyPlan RMP Rating Extension",
+  "name": "UW MyPlan Professor Ratings",
   "version": "1.0",
   "permissions": [
     "activeTab",
