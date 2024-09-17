@@ -63,3 +63,36 @@ This extension is **independently developed** and is **not affiliated with or en
 - **MyPlan**
 
 It is a non-profit tool designed purely for educational purposes to help students make better academic decisions.
+
+
+# Privacy Policy
+
+### MyPlan Professor Rating Extension
+
+_Last updated: [Date]_
+
+The **MyPlan Professor Rating Extension** ("we", "our", or "the extension") does not collect, store, or share any personal data from users. The extension solely interacts with publicly available information from ratemyprofessors.com and injects it into the University of Washington's MyPlan platform to assist students in making course decisions. Below is more detail on how we handle your data:
+
+### 1. **Data Collection**
+- **No Personal Data**: This extension does not collect, store, or transmit any personally identifiable information, health information, financial data, authentication credentials, or communication records.
+- **No User Activity Tracking**: The extension does not track user activity, web history, or monitor any interaction on websites apart from its intended function within the MyPlan platform.
+
+### 2. **Permissions**
+The extension requires the following permissions:
+- **activeTab**: To display professor ratings directly on the active MyPlan page.
+- **Host Permissions**: To access publicly available professor ratings on ratemyprofessors.com.
+
+These permissions are solely used to enhance the user experience by displaying professor ratings while using MyPlan. No other sites or personal data are accessed.
+
+### 3. **Data Sharing**
+This extension does not share any user data with third parties. It only fetches publicly available data from ratemyprofessors.com for display within MyPlan.
+
+### 4. **External Links**
+The extension may include links to ratemyprofessors.com to allow users to view full professor profiles. These external sites are governed by their own privacy policies, and we encourage users to review them.
+
+### 5. **Changes to This Privacy Policy**
+We reserve the right to update this privacy policy at any time. Any changes will be reflected on this GitHub repository.
+
+### 6. **Contact**
+If you have any questions regarding this privacy policy, please contact us via the repository's issue page.
+
