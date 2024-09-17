@@ -1,4 +1,4 @@
-# UW MyPlan RMP Rating Extension
+# UW MyPlan Professor Ratings Extension
 
 ![Demo](demo.png)
 
