@@ -6,7 +6,7 @@
 
 Choosing the right professor can make or break your class experience. With the **MyPlan Professor Rating Extension**, you no longer need to hop between tabs and search for ratings manually. This Chrome extension seamlessly integrates **RateMyProfessors.com** ratings directly into your University of Washington MyPlan platform, helping you make more informed choices without the hassle!
 
-Wondering how difficult a course might be? Or curious about how many students would actually take a class again with a professor? Now, it's all right in front of you as you plan your schedule!
+Wondering how difficult a course might be? Or curious about how many students would actually take a class again with a professor? Now, it's all right in front of you as you plan your schedule.
 
 This tool is **non-profit** and built with students in mind, making the registration process easier and more transparent. All the information presented comes from **RateMyProfessors** and remains **unmanipulated**.
 
@@ -32,12 +32,6 @@ For now, you can install it manually:
 3. Enable **Developer Mode**.
 4. Click on **Load unpacked** and select the folder where you cloned/downloaded the repository.
 5. Navigate to your University of Washington MyPlan account and log in. The professor ratings will appear automatically next to your courses.
-
-### Permissions
-
-This extension requires:
-- **Active Tab**: To display professor ratings directly on your MyPlan page.
-- **Host Permissions**: To access and fetch data from RateMyProfessors.
 
 ### Privacy & Data Collection
 
@@ -79,8 +73,7 @@ The **MyPlan Professor Rating Extension** ("we", "our", or "the extension") does
 
 ### 2. **Permissions**
 The extension requires the following permissions:
-- **activeTab**: To display professor ratings directly on the active MyPlan page.
-- **Host Permissions**: To access publicly available professor ratings on ratemyprofessors.com.
+- **scripting**: To display professor ratings directly on the active MyPlan page and fetch ratings in the background.
 
 These permissions are solely used to enhance the user experience by displaying professor ratings while using MyPlan. No other sites or personal data are accessed.
 
