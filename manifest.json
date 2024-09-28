@@ -3,7 +3,6 @@
   "name": "UW MyPlan Professor Ratings",
   "version": "1.0",
   "permissions": [
-    "activeTab",
     "scripting"
   ],
   "host_permissions": [
