@@ -1,3 +1,8 @@
+// Hardcoded instructor name mappings (more to come through manual testing/feedback)
+const manualInstructorReplacements = {
+    "Joseph Janes": "Joe Janes"
+};
+
 // Formats numerical values to one decimal place and appends '/ 5' if value is not 'N/A'
 function formatToOneDecimal(value) {
     if (value === 'N/A') return 'N/A';
@@ -34,14 +39,20 @@ function getBackgroundColor(value, isDifficulty) {
     return color;
 }
 
-
-// Removes middle names from the professor's name for more accurate searching
+// Removes middle names, always returns the first and last words of the name, and applies manual name corrections
 function removeMiddleName(professorName) {
-    const nameParts = professorName.split(' ');
-    if (nameParts.length > 2) {
+    // Check if the professorName is in the hardcoded mappings
+    if (manualInstructorReplacements[professorName]) {
+        return manualInstructorReplacements[professorName]; // Return the mapped name if it exists
+    }
+
+    const nameParts = professorName.split(' '); // Split the name into parts by spaces
+    
+    if (nameParts.length > 1) {
+        // Return the first word and the last word (with hyphens and apostrophes intact)
         return `${nameParts[0]} ${nameParts[nameParts.length - 1]}`;
     }
-    return professorName;
+    return professorName; // If there's only one word, return it as is
 }
 
 // Performs exact and fuzzy matching on professor names to handle slight variations
@@ -197,19 +208,28 @@ function addRatingColumn() {
 
     const rows = courseTable.querySelectorAll('tbody tr');
     rows.forEach(async (row) => {
-        const professorCell = row.querySelector('td:nth-child(5) .mb-1');
-        const professorName = professorCell ? professorCell.innerText.trim() : null;
 
-        if (row.querySelector('.professor-rating')) {
+        // Select the first professor name from a <ul> list or a single <div>
+        const professorCell = row.querySelector('td:nth-child(5) ul li:first-child') || row.querySelector('td:nth-child(5) div.mb-1');
+        const professorName = professorCell ? professorCell.textContent : null;
+
+        // Skip row if there's no professor name
+        if (!professorName || row.querySelector('.professor-rating')) {
             return;
         }
 
-        if (professorName) {
-            try {
-                const professorData = await getProfessorRating(professorName);
+        try {
+            const professorData = await getProfessorRating(professorName);
 
-                // Create cells for the 3 fields and the link
-                const ratingCell = document.createElement('td');
+            // Check if all fields are N/A, then blank out those columns
+            const allFieldsNA = professorData.rating === 'N/A' && professorData.difficulty === 'N/A' && professorData.wouldTakeAgain === 'N/A';
+
+            const ratingCell = document.createElement('td');
+            const difficultyCell = document.createElement('td');
+            const wouldTakeAgainCell = document.createElement('td');
+            
+            if (!allFieldsNA) {
+                // Create cells for the 3 fields if not all N/A
                 const ratingSpan = document.createElement('span');
                 ratingSpan.innerText = professorData.rating;
                 ratingSpan.style.backgroundColor = getBackgroundColor(professorData.rating, false);
@@ -221,7 +241,6 @@ function addRatingColumn() {
                 ratingCell.appendChild(ratingSpan);
                 ratingCell.classList.add('professor-rating');
 
-                const difficultyCell = document.createElement('td');
                 const difficultySpan = document.createElement('span');
                 difficultySpan.innerText = professorData.difficulty;
                 difficultySpan.style.backgroundColor = getBackgroundColor(professorData.difficulty, true);
@@ -233,7 +252,6 @@ function addRatingColumn() {
                 difficultyCell.appendChild(difficultySpan);
                 difficultyCell.classList.add('professor-difficulty');
 
-                const wouldTakeAgainCell = document.createElement('td');
                 const wouldTakeAgainSpan = document.createElement('span');
                 wouldTakeAgainSpan.innerText = professorData.wouldTakeAgain;
                 wouldTakeAgainSpan.style.backgroundColor = professorData.wouldTakeAgain === 'N/A' ? '#d3d3d3' : '';
@@ -244,37 +262,27 @@ function addRatingColumn() {
                 wouldTakeAgainCell.style.verticalAlign = 'middle';
                 wouldTakeAgainCell.appendChild(wouldTakeAgainSpan);
                 wouldTakeAgainCell.classList.add('would-take-again');
-
-                const rmpLinkCell = document.createElement('td');
-                const rmpLink = document.createElement('a');
-                rmpLink.href = professorData.href;
-                rmpLink.target = '_blank';
-                rmpLink.style.textDecoration = 'underline';
-                rmpLink.style.cursor = 'pointer';
-                rmpLink.style.color = 'inherit';
-                rmpLink.innerText = 'Link';
-                rmpLinkCell.appendChild(rmpLink);
-                rmpLinkCell.style.verticalAlign = 'middle';
-                rmpLinkCell.classList.add('rmp-link');
-
-                row.appendChild(ratingCell);
-                row.appendChild(difficultyCell);
-                row.appendChild(wouldTakeAgainCell);
-                row.appendChild(rmpLinkCell);
-
-            } catch (error) {
-                console.error("Error fetching professor data:", error);
             }
-        } else {
-            const emptyRatingCell = document.createElement('td');
-            const emptyDifficultyCell = document.createElement('td');
-            const emptyWouldTakeAgainCell = document.createElement('td');
-            const emptyRmpLinkCell = document.createElement('td');
 
-            row.appendChild(emptyRatingCell);
-            row.appendChild(emptyDifficultyCell);
-            row.appendChild(emptyWouldTakeAgainCell);
-            row.appendChild(emptyRmpLinkCell);
+            const rmpLinkCell = document.createElement('td');
+            const rmpLink = document.createElement('a');
+            rmpLink.href = professorData.href;
+            rmpLink.target = '_blank';
+            rmpLink.style.textDecoration = 'underline';
+            rmpLink.style.cursor = 'pointer';
+            rmpLink.style.color = 'inherit';
+            rmpLink.innerText = 'Link';
+            rmpLinkCell.appendChild(rmpLink);
+            rmpLinkCell.style.verticalAlign = 'middle';
+            rmpLinkCell.classList.add('rmp-link');
+
+            row.appendChild(ratingCell);
+            row.appendChild(difficultyCell);
+            row.appendChild(wouldTakeAgainCell);
+            row.appendChild(rmpLinkCell);
+
+        } catch (error) {
+            console.error("Error fetching professor data:", error);
         }
     });
 }
