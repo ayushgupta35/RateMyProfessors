@@ -1,4 +1,4 @@
-# UW MyPlan Professor Ratings Extension 🎓📊
+# RateMyProf Assistant for UW MyPlan Extension
 
 ![Demo](demo.png)
 
