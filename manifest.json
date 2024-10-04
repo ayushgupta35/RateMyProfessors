@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "UW MyPlan Professor Ratings",
-  "version": "1.1",
-  "description": "Make Smarter Course Decisions with Just One Click! Integrates Rate My Professors® ratings directly into the UW MyPlan platform.",
+  "version": "1.2",
+  "description": "Make Smarter Course Decisions with Just One Click!",
   "host_permissions": [
     "https://www.ratemyprofessors.com/*"
   ],
