@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "UW MyPlan Professor Ratings",
+  "name": "RateMyProf Assistant for UW MyPlan",
   "version": "1.2",
   "description": "Make Smarter Course Decisions with Just One Click!",
   "host_permissions": [
