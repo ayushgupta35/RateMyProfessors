@@ -227,6 +227,7 @@ function addRatingColumn() {
             const ratingCell = document.createElement('td');
             const difficultyCell = document.createElement('td');
             const wouldTakeAgainCell = document.createElement('td');
+            const rmpLinkCell = document.createElement('td');
             
             if (!allFieldsNA) {
                 // Create cells for the 3 fields if not all N/A
@@ -262,19 +263,19 @@ function addRatingColumn() {
                 wouldTakeAgainCell.style.verticalAlign = 'middle';
                 wouldTakeAgainCell.appendChild(wouldTakeAgainSpan);
                 wouldTakeAgainCell.classList.add('would-take-again');
-            }
 
-            const rmpLinkCell = document.createElement('td');
-            const rmpLink = document.createElement('a');
-            rmpLink.href = professorData.href;
-            rmpLink.target = '_blank';
-            rmpLink.style.textDecoration = 'underline';
-            rmpLink.style.cursor = 'pointer';
-            rmpLink.style.color = 'inherit';
-            rmpLink.innerText = 'Link';
-            rmpLinkCell.appendChild(rmpLink);
-            rmpLinkCell.style.verticalAlign = 'middle';
-            rmpLinkCell.classList.add('rmp-link');
+                const rmpLink = document.createElement('a');
+                rmpLink.href = professorData.href;
+                rmpLink.target = '_blank';
+                rmpLink.style.textDecoration = 'underline';
+                rmpLink.style.cursor = 'pointer';
+                rmpLink.style.color = 'inherit';
+                rmpLink.innerText = 'RateMyProfessors';
+
+                rmpLinkCell.appendChild(rmpLink);
+                rmpLinkCell.style.verticalAlign = 'middle';
+                rmpLinkCell.classList.add('rmp-link');
+            }
 
             row.appendChild(ratingCell);
             row.appendChild(difficultyCell);
