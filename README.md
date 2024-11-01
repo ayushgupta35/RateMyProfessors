@@ -18,7 +18,7 @@ This tool is **non-profit** and built with students in mind, making the registra
 - **Direct Link to Profiles**: Click on a convenient link to visit the professor’s full profile on RateMyProfessors 🌐.
 - **Only Active for Signed-in Users**: The extension ensures that only logged-in MyPlan users can see the additional features 🔒.
 
-### Installation ⚙️
+### Chrome Webstore Installation ⚙️
 
 #### One-Click Download [Here](https://chromewebstore.google.com/detail/ratemyprof-assistant-for/ofkeokbllkoiceaekhaljfjbjegahaej?authuser=0&hl=en)!
 
