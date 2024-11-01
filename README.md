@@ -20,18 +20,7 @@ This tool is **non-profit** and built with students in mind, making the registra
 
 ### Installation ⚙️
 
-#### Chrome Web Store Coming soon! Be on the lookout! 👀
-
-For now, you can install it manually:
-
-1. Clone or download the repository.
-    ```bash
-    git clone https://github.com/your-username/myplan-professor-rating-extension.git
-    ```
-2. Go to `chrome://extensions/` in Chrome.
-3. Enable **Developer Mode**.
-4. Click on **Load unpacked** and select the folder where you cloned/downloaded the repository.
-5. Navigate to your University of Washington MyPlan account and log in. The professor ratings will appear automatically next to your courses.
+#### One-Click Download [Here](https://chromewebstore.google.com/detail/ratemyprof-assistant-for/ofkeokbllkoiceaekhaljfjbjegahaej?authuser=0&hl=en)!
 
 ### Privacy & Data Collection 🔐
 
