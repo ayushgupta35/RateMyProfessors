@@ -163,128 +163,132 @@ function addLegend() {
 
 // Adds rating, difficulty, would-take-again columns, and a link to the RateMyProfessors profile
 function addRatingColumn() {
-    const courseTable = document.querySelector('.cdpSectionsTable table.mb-0');
-    if (!courseTable) {
-        console.error("Table not found!");
+    const courseTables = document.querySelectorAll('.cdpSectionsTable table.mb-0');
+    if (!courseTables.length) {
+        console.error("No tables found!");
         return;
     }
 
-    const headerRow = courseTable.querySelector('thead tr');
+    courseTables.forEach((courseTable) => {
 
-    // Avoid adding columns multiple times
-    if (headerRow.querySelector('.professor-rating')) {
-        return;
-    }
 
-    // Add the legend
-    addLegend();
+        const headerRow = courseTable.querySelector('thead tr');
 
-    // Create and add new columns for Rating, Difficulty, Would Take Again, and Link
-    const ratingHeader = document.createElement('th');
-    ratingHeader.innerText = 'Professor Rating';
-    ratingHeader.classList.add('professor-rating');
-
-    const difficultyHeader = document.createElement('th');
-    difficultyHeader.innerText = 'Professor Difficulty';
-    difficultyHeader.classList.add('professor-difficulty');
-
-    const wouldTakeAgainHeader = document.createElement('th');
-    wouldTakeAgainHeader.innerText = 'Would Take Again';
-    wouldTakeAgainHeader.classList.add('would-take-again');
-
-    const rmpLinkHeader = document.createElement('th');
-    rmpLinkHeader.innerText = '';  // Blank title for RMP link column
-    rmpLinkHeader.classList.add('rmp-link-header');
-
-    ratingHeader.style.width = '150px';
-    difficultyHeader.style.width = '150px';
-    wouldTakeAgainHeader.style.width = '150px';
-    rmpLinkHeader.style.width = '150px';
-
-    headerRow.appendChild(ratingHeader);
-    headerRow.appendChild(difficultyHeader);
-    headerRow.appendChild(wouldTakeAgainHeader);
-    headerRow.appendChild(rmpLinkHeader);
-
-    const rows = courseTable.querySelectorAll('tbody tr');
-    rows.forEach(async (row) => {
-
-        // Select the first professor name from a <ul> list or a single <div>
-        const professorCell = row.querySelector('td:nth-child(5) ul li:first-child') || row.querySelector('td:nth-child(5) div.mb-1');
-        const professorName = professorCell ? professorCell.textContent : null;
-
-        // Skip row if there's no professor name
-        if (!professorName || row.querySelector('.professor-rating')) {
+        // Avoid adding columns multiple times
+        if (headerRow.querySelector('.professor-rating')) {
             return;
         }
 
-        try {
-            const professorData = await getProfessorRating(professorName);
+        // Add the legend
+        addLegend();
 
-            // Check if all fields are N/A, then blank out those columns
-            const allFieldsNA = professorData.rating === 'N/A' && professorData.difficulty === 'N/A' && professorData.wouldTakeAgain === 'N/A';
+        // Create and add new columns for Rating, Difficulty, Would Take Again, and Link
+        const ratingHeader = document.createElement('th');
+        ratingHeader.innerText = 'Professor Rating';
+        ratingHeader.classList.add('professor-rating');
 
-            const ratingCell = document.createElement('td');
-            const difficultyCell = document.createElement('td');
-            const wouldTakeAgainCell = document.createElement('td');
-            const rmpLinkCell = document.createElement('td');
-            
-            if (!allFieldsNA) {
-                // Create cells for the 3 fields if not all N/A
-                const ratingSpan = document.createElement('span');
-                ratingSpan.innerText = professorData.rating;
-                ratingSpan.style.backgroundColor = getBackgroundColor(professorData.rating, false);
-                ratingSpan.style.padding = '5px';
-                ratingSpan.style.borderRadius = '5px';
-                ratingSpan.style.display = 'inline-block';
-                ratingSpan.style.textAlign = 'center';
-                ratingCell.style.verticalAlign = 'middle';
-                ratingCell.appendChild(ratingSpan);
-                ratingCell.classList.add('professor-rating');
+        const difficultyHeader = document.createElement('th');
+        difficultyHeader.innerText = 'Professor Difficulty';
+        difficultyHeader.classList.add('professor-difficulty');
 
-                const difficultySpan = document.createElement('span');
-                difficultySpan.innerText = professorData.difficulty;
-                difficultySpan.style.backgroundColor = getBackgroundColor(professorData.difficulty, true);
-                difficultySpan.style.padding = '5px';
-                difficultySpan.style.borderRadius = '5px';
-                difficultySpan.style.display = 'inline-block';
-                difficultySpan.style.textAlign = 'center';
-                difficultyCell.style.verticalAlign = 'middle';
-                difficultyCell.appendChild(difficultySpan);
-                difficultyCell.classList.add('professor-difficulty');
+        const wouldTakeAgainHeader = document.createElement('th');
+        wouldTakeAgainHeader.innerText = 'Take Again';
+        wouldTakeAgainHeader.classList.add('would-take-again');
 
-                const wouldTakeAgainSpan = document.createElement('span');
-                wouldTakeAgainSpan.innerText = professorData.wouldTakeAgain;
-                wouldTakeAgainSpan.style.backgroundColor = professorData.wouldTakeAgain === 'N/A' ? '#d3d3d3' : '';
-                wouldTakeAgainSpan.style.padding = '5px';
-                wouldTakeAgainSpan.style.borderRadius = '5px';
-                wouldTakeAgainSpan.style.display = 'inline-block';
-                wouldTakeAgainSpan.style.textAlign = 'center';
-                wouldTakeAgainCell.style.verticalAlign = 'middle';
-                wouldTakeAgainCell.appendChild(wouldTakeAgainSpan);
-                wouldTakeAgainCell.classList.add('would-take-again');
+        const rmpLinkHeader = document.createElement('th');
+        rmpLinkHeader.innerText = 'RateMyProfessors Link';
+        rmpLinkHeader.classList.add('rmp-link-header');
 
-                const rmpLink = document.createElement('a');
-                rmpLink.href = professorData.href;
-                rmpLink.target = '_blank';
-                rmpLink.style.textDecoration = 'underline';
-                rmpLink.style.cursor = 'pointer';
-                rmpLink.style.color = 'inherit';
-                rmpLink.innerText = 'RateMyProfessors';
+        ratingHeader.style.width = '150px';
+        difficultyHeader.style.width = '150px';
+        wouldTakeAgainHeader.style.width = '150px';
+        rmpLinkHeader.style.width = '150px';
 
-                rmpLinkCell.appendChild(rmpLink);
-                rmpLinkCell.style.verticalAlign = 'middle';
-                rmpLinkCell.classList.add('rmp-link');
+        headerRow.appendChild(ratingHeader);
+        headerRow.appendChild(difficultyHeader);
+        headerRow.appendChild(wouldTakeAgainHeader);
+        headerRow.appendChild(rmpLinkHeader);
+
+        const rows = courseTable.querySelectorAll('tbody tr');
+        rows.forEach(async (row) => {
+
+            // Select the first professor name from a <ul> list or a single <div>
+            const professorCell = row.querySelector('td:nth-child(5) ul li:first-child') || row.querySelector('td:nth-child(5) div.mb-1');
+            const professorName = professorCell ? professorCell.textContent : null;
+
+            // Skip row if there's no professor name
+            if (!professorName || row.querySelector('.professor-rating')) {
+                return;
             }
 
-            row.appendChild(ratingCell);
-            row.appendChild(difficultyCell);
-            row.appendChild(wouldTakeAgainCell);
-            row.appendChild(rmpLinkCell);
+            try {
+                const professorData = await getProfessorRating(professorName);
 
-        } catch (error) {
-            console.error("Error fetching professor data:", error);
-        }
+                // Check if all fields are N/A, then blank out those columns
+                const allFieldsNA = professorData.rating === 'N/A' && professorData.difficulty === 'N/A' && professorData.wouldTakeAgain === 'N/A';
+
+                const ratingCell = document.createElement('td');
+                const difficultyCell = document.createElement('td');
+                const wouldTakeAgainCell = document.createElement('td');
+                const rmpLinkCell = document.createElement('td');
+                
+                if (!allFieldsNA) {
+                    // Create cells for the 3 fields if not all N/A
+                    const ratingSpan = document.createElement('span');
+                    ratingSpan.innerText = professorData.rating;
+                    ratingSpan.style.backgroundColor = getBackgroundColor(professorData.rating, false);
+                    ratingSpan.style.padding = '5px';
+                    ratingSpan.style.borderRadius = '5px';
+                    ratingSpan.style.display = 'inline-block';
+                    ratingSpan.style.textAlign = 'center';
+                    ratingCell.style.verticalAlign = 'middle';
+                    ratingCell.appendChild(ratingSpan);
+                    ratingCell.classList.add('professor-rating');
+
+                    const difficultySpan = document.createElement('span');
+                    difficultySpan.innerText = professorData.difficulty;
+                    difficultySpan.style.backgroundColor = getBackgroundColor(professorData.difficulty, true);
+                    difficultySpan.style.padding = '5px';
+                    difficultySpan.style.borderRadius = '5px';
+                    difficultySpan.style.display = 'inline-block';
+                    difficultySpan.style.textAlign = 'center';
+                    difficultyCell.style.verticalAlign = 'middle';
+                    difficultyCell.appendChild(difficultySpan);
+                    difficultyCell.classList.add('professor-difficulty');
+
+                    const wouldTakeAgainSpan = document.createElement('span');
+                    wouldTakeAgainSpan.innerText = professorData.wouldTakeAgain;
+                    wouldTakeAgainSpan.style.backgroundColor = professorData.wouldTakeAgain === 'N/A' ? '#d3d3d3' : '';
+                    wouldTakeAgainSpan.style.padding = '5px';
+                    wouldTakeAgainSpan.style.borderRadius = '5px';
+                    wouldTakeAgainSpan.style.display = 'inline-block';
+                    wouldTakeAgainSpan.style.textAlign = 'center';
+                    wouldTakeAgainCell.style.verticalAlign = 'middle';
+                    wouldTakeAgainCell.appendChild(wouldTakeAgainSpan);
+                    wouldTakeAgainCell.classList.add('would-take-again');
+
+                    const rmpLink = document.createElement('a');
+                    rmpLink.href = professorData.href;
+                    rmpLink.target = '_blank';
+                    rmpLink.style.textDecoration = 'underline';
+                    rmpLink.style.cursor = 'pointer';
+                    rmpLink.style.color = 'inherit';
+                    rmpLink.innerText = 'RateMyProfessors';
+
+                    rmpLinkCell.appendChild(rmpLink);
+                    rmpLinkCell.style.verticalAlign = 'middle';
+                    rmpLinkCell.classList.add('rmp-link');
+                }
+
+                row.appendChild(ratingCell);
+                row.appendChild(difficultyCell);
+                row.appendChild(wouldTakeAgainCell);
+                row.appendChild(rmpLinkCell);
+
+            } catch (error) {
+                console.error("Error fetching professor data:", error);
+            }
+        });
     });
 }
 
